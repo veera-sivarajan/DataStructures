@@ -6,7 +6,7 @@ public class LinkedList<T> {
   private Node<Integer> head;  
   
   public LinkedList() {
-    this.head = new Node<Integer>(0, null);
+    this.head = null;
   }
   
   public int size() {
@@ -23,7 +23,7 @@ public class LinkedList<T> {
   
   public void addToTail(Node<Integer> link) {
     System.out.println("Entering addToTail");
-    if(head.getLink() == null) { 
+    if(head == null) { 
       head = link;
       System.out.println("Adding to Head");
     }
@@ -41,6 +41,20 @@ public class LinkedList<T> {
     this.head = link;
   }
   
+  public Integer countDuplicate(Integer num) {
+    Node<Integer> tail = head;
+    return countDuplicateHelper(tail, 0,  num);
+  }
+  
+  private Integer countDuplicateHelper(Node<Integer> tail, Integer count , Integer num) {
+    if(tail != null) {
+      if(tail.getData() == num) 
+	 return countDuplicateHelper(tail.getLink(), count + 1, num);
+      return countDuplicateHelper(tail.getLink(), count, num); 
+    }
+    return count;
+  } 
+  
   public void printList() {
     Node<Integer> tail = head;
     while(tail != null) {
@@ -53,9 +67,16 @@ public class LinkedList<T> {
     LinkedList<Integer> list = new LinkedList<Integer>();
     Node<Integer> ele1 = new Node<Integer>(4, null);
     Node<Integer> ele2 = new Node<Integer>(5, null);
+    Node<Integer> ele3 = new Node<Integer>(4, null);
+    Node<Integer> ele4 = new Node<Integer>(4, null);
+    Node<Integer> ele5 = new Node<Integer>(4, null);
     list.addToTail(ele1);
-    list.addToHead(ele2);
+    list.addToTail(ele2);
+    list.addToTail(ele3);
+    list.addToTail(ele4);
+    list.addToTail(ele5);
     list.printList();
     System.out.println("Size: " + list.size()); 
+    System.out.println("Duplicates: " + list.countDuplicate(5));
   }  
 }
