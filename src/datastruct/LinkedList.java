@@ -47,12 +47,23 @@ public class LinkedList<T> {
   }
   
   private Integer countDuplicateHelper(Node<Integer> tail, Integer count , Integer num) {
-    if(tail != null) {
-      if(tail.getData() == num) 
-	 return countDuplicateHelper(tail.getLink(), count + 1, num);
+    if(tail == null)
+      return count;
+    if(tail.getData() == num)
+      return countDuplicateHelper(tail.getLink(), count + 1, num);
+    else
       return countDuplicateHelper(tail.getLink(), count, num); 
-    }
-    return count;
+  } 
+
+  public int getIndexOf(Integer num) {
+    Node<Integer> tail = head;
+    return getIndexOfHelper(tail, num, 0);
+  }
+  
+  private int getIndexOfHelper(Node<Integer> tail, Integer num, int index) {
+    if(tail.getData() == num)
+      return index;
+    return getIndexOfHelper(tail.getLink(), num, index + 1);
   } 
   
   public void printList() {
@@ -78,5 +89,6 @@ public class LinkedList<T> {
     list.printList();
     System.out.println("Size: " + list.size()); 
     System.out.println("Duplicates: " + list.countDuplicate(5));
+    System.out.println("Index of 5: " + list.getIndexOf(4));
   }  
 }
