@@ -73,11 +73,11 @@ public class LinkedList<T> {
   
   private void removeHelper(Node<Integer> tail, Integer num) {
     if(tail.getData() == num) {
-      tail.setLink(tail.getLink());
+      head = tail.getLink(); 
       return;
     }
     if(tail.getLink().getData() == num) {
-      tail.setLink(tail.getLink().getLink());
+      tail.setLink(tail.getLink());
       return;
     }
     removeHelper(tail.getLink(), num);
