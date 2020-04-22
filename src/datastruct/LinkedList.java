@@ -66,6 +66,22 @@ public class LinkedList<T> {
     return getIndexOfHelper(tail.getLink(), num, index + 1);
   } 
   
+  public void remove(Integer num) {
+    Node<Integer> tail = head;
+    removeHelper(tail, num);  
+  }
+  
+  private void removeHelper(Node<Integer> tail, Integer num) {
+    if(tail.getData() == num) {
+      tail.setLink(tail.getLink());
+      return;
+    }
+    if(tail.getLink().getData() == num) {
+      tail.setLink(tail.getLink().getLink());
+      return;
+    }
+    removeHelper(tail.getLink(), num);
+  }
   public void printList() {
     Node<Integer> tail = head;
     while(tail != null) {
@@ -86,9 +102,13 @@ public class LinkedList<T> {
     list.addToTail(ele3);
     list.addToTail(ele4);
     list.addToTail(ele5);
+    System.out.println("Before remove:");
     list.printList();
     System.out.println("Size: " + list.size()); 
     System.out.println("Duplicates: " + list.countDuplicate(5));
     System.out.println("Index of 5: " + list.getIndexOf(4));
+    list.remove(4);
+    System.out.println("After remove 5");
+    list.printList();
   }  
 }
