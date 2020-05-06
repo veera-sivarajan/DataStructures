@@ -67,21 +67,24 @@ public class LinkedList<T> {
   } 
   
   public void remove(Integer num) {
-    Node<Integer> tail = head;
-    removeHelper(tail, num);  
-  }
-  
-  private void removeHelper(Node<Integer> tail, Integer num) {
-    if(tail.getData() == num) {
-      head = tail.getLink(); 
-      return;
+    if(head == null)
+      throw new IndexOutOfBoundsException("Delete Element When List Empty");
+    Node<Integer> temp = head;
+    removeHelper(num);
+    head = temp;
+  } 
+  private void removeHelper(Integer num) {
+    //System.out.println(System.identityHashCode(tail));
+    while(this.head != null) {
+      if(head.getData() == num) {
+        head = head.getLink();
+        System.out.println("Head data inside remove: " + head.getData());
+        return;
+      }
+      head = head.getLink();
     }
-    if(tail.getLink().getData() == num) {
-      tail.setLink(tail.getLink());
-      return;
-    }
-    removeHelper(tail.getLink(), num);
   }
+    
   public void printList() {
     Node<Integer> tail = head;
     while(tail != null) {
@@ -92,23 +95,22 @@ public class LinkedList<T> {
   
   public static void main(String[] args) {
     LinkedList<Integer> list = new LinkedList<Integer>();
-    Node<Integer> ele1 = new Node<Integer>(4, null);
-    Node<Integer> ele2 = new Node<Integer>(5, null);
-    Node<Integer> ele3 = new Node<Integer>(4, null);
+    Node<Integer> ele1 = new Node<Integer>(1, null);
+    Node<Integer> ele2 = new Node<Integer>(2, null);
+    Node<Integer> ele3 = new Node<Integer>(3, null);
     Node<Integer> ele4 = new Node<Integer>(4, null);
-    Node<Integer> ele5 = new Node<Integer>(4, null);
+    Node<Integer> ele5 = new Node<Integer>(5, null);
+    Node<Integer> ele6 = new Node<Integer>(6, null);
     list.addToTail(ele1);
     list.addToTail(ele2);
     list.addToTail(ele3);
     list.addToTail(ele4);
     list.addToTail(ele5);
+    list.addToTail(ele6);
     System.out.println("Before remove:");
     list.printList();
-    System.out.println("Size: " + list.size()); 
-    System.out.println("Duplicates: " + list.countDuplicate(5));
-    System.out.println("Index of 5: " + list.getIndexOf(4));
-    list.remove(4);
-    System.out.println("After remove 5");
+    list.remove(3);
+    System.out.println("After remove 6");
     list.printList();
   }  
 }
