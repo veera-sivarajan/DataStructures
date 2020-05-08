@@ -4,10 +4,12 @@ public class ArrayHashTable<V> {
   private static int size;
   private V[] array;
   private static int capacity;
-  
+  private double loadFactor; 
+
   public ArrayHashTable(int capacity) {
     this.capacity = capacity;
     array = (V[]) new Object[capacity];
+    loadFactor = 0.0;
   }
   
   public static int getSize() {
@@ -26,11 +28,16 @@ public class ArrayHashTable<V> {
     return key % capacity;
   }
 
+  public double loadFactor() {
+    loadFactor = size / capacity;
+    return loadFactor;
+  }
+
   public void add(int key, V value) {
     size += 1;
     int index = hashCode(key);
     while(array[index] != null) {
-      index += 1;
+      index += 2;
     }
     System.out.println("Adding element at: " + index);
     array[index] = value;  
@@ -49,6 +56,7 @@ public class ArrayHashTable<V> {
     table.add(1, "Appa");
     table.add(1, "Poorna");
     System.out.println("Size: " + table.getSize());
+    System.out.println("Load Factor: " + table.loadFactor());
     System.out.println("Find: " + table.find(1, "Amma"));
   }
 }
