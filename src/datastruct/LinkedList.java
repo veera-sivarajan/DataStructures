@@ -31,7 +31,7 @@ public class LinkedList<T> {
       System.out.println("Adding to tail using while loop");
       Node<Integer> tail = head;
       while(tail.getLink() != null)
-	tail = tail.getLink();
+	      tail = tail.getLink();
       tail.setLink(link);
     } 
   }

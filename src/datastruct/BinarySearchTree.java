@@ -52,14 +52,45 @@ public class BinarySearchTree<T extends Comparable<T>> {
       node.setRight(insertHelper(node.getRight(), toAdd));
     return node;
   }
-  
+
+  public void traverse() {
+    inOrderTraversal(root);
+  }
+
+  private void inOrderTraversal(BSTNode<T> node) {
+    if(node != null) {
+      inOrderTraversal(node.getLeft());
+      System.out.print(node.getData() + " ");
+      inOrderTraversal(node.getRight());
+    }
+  }
+
+  public int height() {
+    return heightHelper(root);
+  }
+
+  private int heightHelper(BSTNode<T> node) {
+    if(node == null)
+      return -1;
+    return 1 + Math.max(heightHelper(node.getLeft()), heightHelper(node.getRight()));
+  }
+
+  public boolean isBalanced() {
+    int size = this.size();
+    int h1 = (int) Math.pow(2, this.height());
+    int h2 = (int) Math.pow(2, this.height() + 1);
+    return (size >= h1) && (size < h2);
+  }
+
   public static void main(String[] args) throws Exception {
     BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
-    for(Integer num : new Integer[] {1, 2, 3, 4, 5, 6, 7})
+    for(Integer num : new Integer[] {5, 3, 7, 1, 4, 6, 8})
       tree.insert(num);
     Integer num = Integer.valueOf(9);
     if(tree.find(num) != null) 
       System.out.println("Contains");
     System.out.println("Size: " + tree.size());
+    tree.traverse();
+    System.out.println("isBalanced: " + tree.isBalanced());
   }    
 }
