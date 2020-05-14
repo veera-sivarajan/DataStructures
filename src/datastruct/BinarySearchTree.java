@@ -54,7 +54,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
   }
 
   public void traverse() {
+    System.out.print("In order: ");
     inOrderTraversal(root);
+    System.out.println();
+    System.out.print("Pre order: ");
+    preOrderTraversal(root);
+    System.out.println();
+    System.out.print("Post order: ");
+    postOrderTraversal(root);
+    System.out.println();
   }
 
   private void inOrderTraversal(BSTNode<T> node) {
@@ -62,6 +70,22 @@ public class BinarySearchTree<T extends Comparable<T>> {
       inOrderTraversal(node.getLeft());
       System.out.print(node.getData() + " ");
       inOrderTraversal(node.getRight());
+    }
+  }
+
+  private void preOrderTraversal(BSTNode<T> node) {
+    if(node != null) {
+      System.out.print(node.getData() + " ");
+      preOrderTraversal(node.getLeft());
+      preOrderTraversal(node.getRight());
+    }
+  }
+
+  private void postOrderTraversal(BSTNode<T> node) {
+    if(node != null) {
+      postOrderTraversal(node.getLeft());
+      postOrderTraversal(node.getRight());
+      System.out.print(node.getData() + " ");
     }
   }
 
