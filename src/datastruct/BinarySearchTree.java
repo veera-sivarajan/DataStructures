@@ -1,5 +1,8 @@
 package datastruct;
 
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class BinarySearchTree<T extends Comparable<T>> {
   private BSTNode<T> root;
   
@@ -54,13 +57,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
   }
 
   public void traverse() {
-    System.out.print("In order: ");
+    System.out.print("In order(LNR): ");
     inOrderTraversal(root);
     System.out.println();
-    System.out.print("Pre order: ");
+    System.out.print("Pre order(NLR): ");
     preOrderTraversal(root);
     System.out.println();
-    System.out.print("Post order: ");
+    System.out.print("Post order(LRN): ");
     postOrderTraversal(root);
     System.out.println();
   }
@@ -70,6 +73,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
       inOrderTraversal(node.getLeft());
       System.out.print(node.getData() + " ");
       inOrderTraversal(node.getRight());
+    }
+  }
+
+  private void inOrderTraversal(BSTNode<T> node, ArrayList<T> array) {
+    if(node != null) {
+      inOrderTraversal(node.getLeft(), array);
+      array.add(node.getData());
+      inOrderTraversal(node.getRight(), array);
     }
   }
 
@@ -106,15 +117,35 @@ public class BinarySearchTree<T extends Comparable<T>> {
     return (size >= h1) && (size < h2);
   }
 
+  public void  balance() {
+    ArrayList<T> sortedArray = new ArrayList<T>();
+    inOrderTraversal(root, sortedArray);
+    for(T num : sortedArray) 
+      System.out.println(num);
+  }
   public static void main(String[] args) throws Exception {
     BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
-    for(Integer num : new Integer[] {5, 3, 7, 1, 4, 6, 8})
+   /* for(Integer num : new Integer[] {5, 3, 7, 1, 4, 6, 8})
       tree.insert(num);
     Integer num = Integer.valueOf(9);
     if(tree.find(num) != null) 
       System.out.println("Contains");
     System.out.println("Size: " + tree.size());
     tree.traverse();
-    System.out.println("isBalanced: " + tree.isBalanced());
+    System.out.println("isBalanced: " + tree.isBalanced()); */
+    Scanner input = new Scanner(System.in);
+    System.out.println("Enter elements: ");
+    Integer[] array = new Integer[10];
+    for(int i = 0; i < array.length; ++i) 
+      array[i] = input.nextInt();
+    for(Integer num : array) {
+      tree.insert(num);
+    }
+    tree.traverse();
+    System.out.println("Height: " + tree.height());
+    System.out.println("Balanced?: " + tree.isBalanced());
+    tree.balance();
+    input.close();
   }    
 }
+
