@@ -116,13 +116,54 @@ public class BinarySearchTree<T extends Comparable<T>> {
     int h2 = (int) Math.pow(2, this.height() + 1);
     return (size >= h1) && (size < h2);
   }
+  
+  private T findMedian(ArrayList<T> sortedArray) {
+    return sortedArray.get((sortedArray.size() - 1) / 2);
+  }
 
+  private ArrayList<T> findLeftArray(ArrayList<T> array) {
+    ArrayList<T> leftArray = new ArrayList<T>();
+    T median = findMedian(array);
+    for(T ele : array) {
+      if(ele.compareTo(median) < 0) {
+        leftArray.add(ele);
+      }
+    }
+    return leftArray;
+  }
+
+  private ArrayList<T> findRightArray(ArrayList<T> array) {
+    ArrayList<T> rightArray = new ArrayList<T>();
+    T median = findMedian(array);
+    for(T ele : array) {
+      if(ele.compareTo(median) > 0) {
+        rightArray.add(ele);
+      }
+    }
+    return rightArray;
+  }
+
+  private void makeTree(ArrayList<T> sortedArray, BinarySearchTree<T> balancedTree) {
+    if(sortedArray.size() >= 1) {
+      T median = findMedian(sortedArray);
+      System.out.print("Inserting: " + median);
+      balancedTree.insert(median);
+      makeTree(findLeftArray(sortedArray), balancedTree);
+      makeTree(findRightArray(sortedArray), balancedTree);
+    }
+  }
+   
   public void  balance() {
     ArrayList<T> sortedArray = new ArrayList<T>();
     inOrderTraversal(root, sortedArray);
-    for(T num : sortedArray) 
-      System.out.println(num);
-  }
+    BinarySearchTree<T> balancedTree = new BinarySearchTree<T>();
+    makeTree(sortedArray, balancedTree);
+    System.out.println("Balanced Tree");
+    balancedTree.traverse();
+    System.out.print("Balanced: " + balancedTree.isBalanced());
+    System.out.print("Size: " + balancedTree.height());
+  } 
+
   public static void main(String[] args) throws Exception {
     BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
    /* for(Integer num : new Integer[] {5, 3, 7, 1, 4, 6, 8})
@@ -141,9 +182,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
     for(Integer num : array) {
       tree.insert(num);
     }
-    tree.traverse();
+    /*tree.traverse();
     System.out.println("Height: " + tree.height());
-    System.out.println("Balanced?: " + tree.isBalanced());
+    System.out.println("Balanced?: " + tree.isBalanced()); */
+    System.out.println("Input Tree");
+    tree.traverse();
+    System.out.println("Balanced: " + tree.isBalanced());
     tree.balance();
     input.close();
   }    
