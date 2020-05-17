@@ -146,22 +146,22 @@ public class BinarySearchTree<T extends Comparable<T>> {
   private void makeTree(ArrayList<T> sortedArray, BinarySearchTree<T> balancedTree) {
     if(sortedArray.size() >= 1) {
       T median = findMedian(sortedArray);
-      System.out.print("Inserting: " + median);
+      System.out.println("Inserting: " + median);
       balancedTree.insert(median);
       makeTree(findLeftArray(sortedArray), balancedTree);
       makeTree(findRightArray(sortedArray), balancedTree);
     }
   }
    
-  public void  balance() {
+  public void balance() {
     ArrayList<T> sortedArray = new ArrayList<T>();
-    inOrderTraversal(root, sortedArray);
+    inOrderTraversal(root, sotedArray);
     BinarySearchTree<T> balancedTree = new BinarySearchTree<T>();
     makeTree(sortedArray, balancedTree);
     System.out.println("Balanced Tree");
     balancedTree.traverse();
-    System.out.print("Balanced: " + balancedTree.isBalanced());
-    System.out.print("Size: " + balancedTree.height());
+    System.out.println("Balanced: " + balancedTree.isBalanced());
+    System.out.println("Height: " + balancedTree.height());
   } 
 
   public static void main(String[] args) throws Exception {
@@ -187,6 +187,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     System.out.println("Balanced?: " + tree.isBalanced()); */
     System.out.println("Input Tree");
     tree.traverse();
+    System.out.println("Height: " + tree.height());
     System.out.println("Balanced: " + tree.isBalanced());
     tree.balance();
     input.close();
