@@ -155,7 +155,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
    
   public void balance() {
     ArrayList<T> sortedArray = new ArrayList<T>();
-    inOrderTraversal(root, sotedArray);
+    inOrderTraversal(root, sortedArray);
     BinarySearchTree<T> balancedTree = new BinarySearchTree<T>();
     makeTree(sortedArray, balancedTree);
     System.out.println("Balanced Tree");

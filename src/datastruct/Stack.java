@@ -40,14 +40,13 @@ public class Stack<T> {
     return top.getData();
   }
   
-  public static void main(String[] args) {
-    Stack<String> stack = new Stack<String>();
-    try { 
-      System.out.println("Remove: " + stack.pop());
-    }
-    catch(Exception e) {
-      System.out.println(e.toString());
-    }
+  public static void main(String[] args) throws Exception {
+    Stack<Integer> stack = new Stack<Integer>();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
     System.out.println("Peek: " + stack.peek());
+    stack.pop();
+    System.out.println("Peek after pop: " + stack.peek());
   }
 }
