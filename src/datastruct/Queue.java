@@ -21,7 +21,7 @@ public class Queue<T> {
       head = tail = toAdd;
     }
     else {
-      toAdd.setLink(tail);
+      tail.setLink(toAdd);
       tail = toAdd;
     }
     size += 1;
